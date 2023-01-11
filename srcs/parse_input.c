@@ -6,25 +6,20 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/05 14:21:51 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/09 14:37:48 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int only_num(char *str)
+static int	init_checks(t_data *data)
 {
-	int i;
-
-	i = 0;
-	if (str[i] == '-')
-		return (EXIT_FAILURE);
-	while(str[i])
-	{
-		if (ft_isdigit(str[i]) == 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
+	if (data->num_philos < 2)
+		return (printf("./philo need atleast 2 philos for the feast\n", EXIT_FAILURE));
+	if (data->num_philos > 200)
+		return (printf("./philo no more then 200 philos allowed at the feast\n"), EXIT_FAILURE);
+	if (data->time_to_die < 0 || data->time_to_sleep < 0 || data->time_to_eat < 0)
+		return (printf("./philo time_to_* only 60ms > allowed.\n"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -42,6 +37,9 @@ static int	chopsticks_init(t_data *data)
 			return (EXIT_FAILURE);
 		i++;
 	}
+	data->write_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (pthread_mutex_init(data->write_mutex, NULL))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -56,7 +54,9 @@ static int    philosophers_init(t_data *data)
 	while (i < data->num_philos)
 	{
 		data->philo[i].id = i + 1;
+		data->philo[i].done = 0;
 		data->philo[i].data = data;
+		data->philo[i].must_eat = data->n_must_eat;
 		data->philo[i].lfork = &data->chopsticks[i];
 		data->philo[i].rfork = &data->chopsticks[((i + 1) % data->num_philos)];
 		i++;
@@ -79,8 +79,12 @@ static int data_init(t_data *data, char **argv)
 		if (data->n_must_eat < 0)
 			return(EXIT_FAILURE);
 	}
-	if (data->num_philos < 2 || data->time_to_die < 0 ||
-		data->time_to_eat < 0 || data->time_to_sleep < 0)
+	else
+		data->n_must_eat = -1;
+	if (init_checks(data))
+		return (EXIT_FAILURE);
+	data->philo_t = ft_calloc(1, sizeof(pthread_t));
+	if (!data->philo_t)
 		return (EXIT_FAILURE);
 	if (chopsticks_init(data))
 		return (EXIT_FAILURE);
