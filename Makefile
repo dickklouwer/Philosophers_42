@@ -3,7 +3,7 @@
 
 NAME := philo
 
-SRCS := main.c parse_input.c libft.c philosophers.c time.c utils.c
+SRCS := main.c parse_input.c libft.c philosophers.c time.c utils.c tasks.c
 
 SRCSDIR := srcs
 

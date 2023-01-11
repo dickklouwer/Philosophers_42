@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/04 14:54:24 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/10 14:08:12 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/11 14:08:32 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ u_int64_t	get_current_time(void)
 	return (cur_time_ms);
 }
 
-void     p_sleep(t_philo *philo, uint64_t ms)
+void     p_sleep(t_philo *philo, uint64_t ms, int state)
 {
     struct timeval tv1;
     struct timeval tv2;
     
+	if (philo->done == 1)
+		return ;
     gettimeofday(&tv1, NULL);
     tv1.tv_sec += ms / 1000;
     tv1.tv_usec += (ms % 1000) * 1000;
@@ -56,12 +58,9 @@ void     p_sleep(t_philo *philo, uint64_t ms)
     {
         gettimeofday(&tv2, NULL);
         if (tv2.tv_sec > tv1.tv_sec)
-		{
 			break ;
-		}
         if (tv2.tv_sec == tv1.tv_sec && tv2.tv_usec >= tv1.tv_usec)
-		{
 			break ;
-		}
     }
+	print_log(philo, state);
 }

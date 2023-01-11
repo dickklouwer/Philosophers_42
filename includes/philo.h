@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/23 13:26:17 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/10 15:17:58 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/11 14:11:26 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct      s_data
 	pthread_t			*philo_t;
 }           t_data;
 
-void     p_sleep(t_philo *philo, uint64_t ms);
+void     p_sleep(t_philo *philo, uint64_t ms, int state);
 int parse_input(t_data *data, char **argv, int argc);
 u_int64_t	get_current_time(void);
 void print_log(t_philo *philo, int state);
@@ -69,6 +69,11 @@ int     ft_isdigit(int c);
 int philo_threads(t_data *data);
 
 int only_num(char *str);
+
+int thinking(t_philo *philo);
+int    eating(t_philo *philo);
+int pick_fork(t_philo *philo);
+int     died(t_data *data, t_philo *philo);
 
 /* 
 	DELETE WHEN FHINISED
