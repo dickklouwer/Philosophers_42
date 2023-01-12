@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/09 14:37:48 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/12 10:42:08 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int data_init(t_data *data, char **argv)
 		if (data->n_must_eat < 0)
 			return(EXIT_FAILURE);
 	}
-	else
+	if (!argv[5])
 		data->n_must_eat = -1;
 	if (init_checks(data))
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/23 13:26:17 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/11 14:11:26 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/12 10:21:32 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ typedef struct      s_philo
 
 typedef struct      s_data
 {
-	int               num_philos;
-	uint64_t     time_to_die;
-	long long int     time_to_eat;
-	long long int     time_to_sleep;
-	int               n_must_eat;
-	uint64_t          start_time;
-	pthread_mutex_t	  *chopsticks;
+	int              	num_philos;
+	uint64_t     		time_to_die;
+	long long int     	time_to_eat;
+	long long int    	time_to_sleep;
+	long long int       n_must_eat;
+	int					finished;
+	uint64_t          	start_time;
+	pthread_mutex_t	  	*chopsticks;
 	pthread_mutex_t		*write_mutex;
 	t_philo           	*philo;
 	pthread_t			*philo_t;
@@ -70,9 +71,9 @@ int philo_threads(t_data *data);
 
 int only_num(char *str);
 
-int thinking(t_philo *philo);
+int 	thinking(t_philo *philo);
 int    eating(t_philo *philo);
-int pick_fork(t_philo *philo);
+int 	pick_fork(t_philo *philo);
 int     died(t_data *data, t_philo *philo);
 
 /* 
