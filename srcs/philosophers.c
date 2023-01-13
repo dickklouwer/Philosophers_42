@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/04 15:05:22 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/12 13:30:13 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/13 15:21:38 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ void    *philo(void *philosopher)
     {
         p_sleep(philo, 10, 0);
     }
-    while (data->finished == 0)
+    while (philo->done == 0)
     {
         if (eating(philo))
             break ;
-        p_sleep(philo, data->time_to_sleep, SLEEPING);
+        sleeper(philo);
         thinking(philo);
-        printf("\n%d, id: %d\n", philo->done, philo->id);
     }
 }
 
@@ -44,7 +43,11 @@ int philo_threads(t_data *data)
     {
         data->philo[i].time_last_eat = data->start_time;
         if (pthread_create(data->philo_t, NULL, &philo, &data->philo[i]))
+        {
             return (EXIT_FAILURE);
+        }
         i++;
     }
+    died(data);
+    return (EXIT_SUCCESS);
 }

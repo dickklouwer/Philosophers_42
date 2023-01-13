@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/12 10:42:08 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/13 10:53:25 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	chopsticks_init(t_data *data)
 	}
 	data->write_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (pthread_mutex_init(data->write_mutex, NULL))
-		return (EXIT_FAILURE);
+		return (printf("Mutex initialization failed"), 1);
 	return (EXIT_SUCCESS);
 }
 

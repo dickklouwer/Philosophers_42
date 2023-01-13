@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/23 13:26:17 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/12 10:21:32 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/13 15:16:47 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ typedef struct      s_data
 }           t_data;
 
 void     p_sleep(t_philo *philo, uint64_t ms, int state);
+int     sleeper(t_philo *philo);
 int parse_input(t_data *data, char **argv, int argc);
 u_int64_t	get_current_time(void);
-void print_log(t_philo *philo, int state);
-int     died(t_data *data, t_philo *philo);
+int print_log(t_philo *philo, int state);
+int     died(t_data *data);
 
 /*  LIBFT
  */
@@ -74,7 +75,7 @@ int only_num(char *str);
 int 	thinking(t_philo *philo);
 int    eating(t_philo *philo);
 int 	pick_fork(t_philo *philo);
-int     died(t_data *data, t_philo *philo);
+int     died(t_data *data);
 
 /* 
 	DELETE WHEN FHINISED
