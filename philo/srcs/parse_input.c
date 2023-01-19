@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/16 15:10:47 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 13:02:35 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	chopsticks_init(t_data *data)
 	while (i < data->num_philos)
 	{
 		if (pthread_mutex_init(&data->chopsticks[i], NULL))
-			return (EXIT_FAILURE);
+			return (printf("Mutex initialization failed"), 1);
 		i++;
 	}
 	data->write_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
@@ -59,9 +59,14 @@ static int    philosophers_init(t_data *data)
 		data->philo[i].must_eat = data->n_must_eat;
 		data->philo[i].lfork = &data->chopsticks[i];
 		data->philo[i].rfork = &data->chopsticks[((i + 1) % data->num_philos)];
+		data->philo[i].philo_t = ft_calloc(1, sizeof(pthread_t));
+		if (!data->philo[i].philo_t)
+			return (EXIT_FAILURE);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	if (i == data->num_philos)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 static int data_init(t_data *data, char **argv)
@@ -81,12 +86,9 @@ static int data_init(t_data *data, char **argv)
 	}
 	if (!argv[5])
 		data->n_must_eat = -1;
-	if (init_checks(data))
-		return (EXIT_FAILURE);
-	data->philo_t = ft_calloc(1, sizeof(pthread_t));
-	if (!data->philo_t)
-		return (EXIT_FAILURE);
 	if (chopsticks_init(data))
+		return (EXIT_FAILURE);
+	if (init_checks(data))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -97,22 +99,16 @@ int parse_input(t_data *data, char **argv, int argc)
 
 	i = 1;
 	if (argc != 5 && argc != 6)
-	{
 		return (printf("./philo: missing arguments"), EXIT_FAILURE);
-	} 
 	while (i < argc)
 	{
 		if (only_num(argv[i]))
-		{
 			return (printf("./philo: only non-negative input allowed\n"), EXIT_FAILURE);
-		}
 		i++;
 	}
 	if (data_init(data, argv))
-	{
 		return (printf("./philo: integer is out of limits\n"), EXIT_FAILURE);
-	}
 	if (philosophers_init(data))
-		return (EXIT_FAILURE);
+		return (printf("./philo: Philosophers initialization failed"), 1);
 	return (EXIT_SUCCESS);
 }

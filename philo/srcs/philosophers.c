@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/04 15:05:22 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/16 15:11:22 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 13:49:34 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,46 +20,21 @@ void    *philo(void *philosopher)
     philo = (t_philo *)philosopher;
     data = philo->data;
     if (philo->id % 2 == 0)
-    {
-        p_sleep(philo, 10);
-    }
-    while (philo->done == 0)
-    {
-        if (eating(philo))
-        {
-            break ;
-        }
-        sleeper(philo);
-        thinking(philo);
-    }
-}
-
-void     died(t_data *data)
-{
-    uint64_t curr_time;
-    int i;
-
-    i = 0;
+        p_sleep(philo->data, 10);
     while (1)
     {
-        pthread_mutex_lock(data->write_mutex);
-        curr_time = get_current_time();
-        if ((curr_time - data->philo[i % data->num_philos].time_last_eat) > data->time_to_die)
-        {
-            data->finished = 1;
-            pthread_mutex_unlock(data->write_mutex);
-            print_log(&data->philo[i % data->num_philos], DIED);
-            return ;
-        }
-        pthread_mutex_unlock(data->write_mutex);
-        i++;
+        eating(philo);
+        philo_sleep(philo);
+        thinking(philo);
+        if (philo->done)
+            break ;
     }
-    
+    return (EXIT_SUCCESS);
 }
 
 int philo_threads(t_data *data)
 {
-    int i;
+    long long int i;
 
     i = 0;
     data->finished = 0;
@@ -67,7 +42,7 @@ int philo_threads(t_data *data)
     while (i < data->num_philos)
     {
         data->philo[i].time_last_eat = data->start_time;
-        if (pthread_create(data->philo_t, NULL, &philo, &data->philo[i]))
+        if (pthread_create(data->philo[i].philo_t, NULL, &philo, &data->philo[i]))
         {
             data->finished = 1;
             return (EXIT_FAILURE);

@@ -6,18 +6,12 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 14:59:32 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/05 14:11:41 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 14:05:22 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 #include <limits.h>
-
-int	error(char *str, int errnum)
-{
-	printf("%s", str);
-	exit (errnum);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -74,48 +68,3 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
-
-// ONLY TESTING //
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	long	nbr;
-
-	nbr = n;
-	if (nbr == -2147483648)
-		write(fd, "-2147483648", 11);
-	else if (nbr < 0)
-	{
-		ft_putchar_fd('-', fd);
-		ft_putnbr_fd(-nbr, fd);
-	}
-	else if (n <= 9)
-		ft_putchar_fd(nbr + 48, fd);
-	else
-	{
-		ft_putnbr_fd(nbr / 10, fd);
-		ft_putchar_fd(nbr % 10 + 48, fd);
-	}
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-

@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/23 13:26:17 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/16 15:10:25 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 13:37:31 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,27 @@ typedef struct      s_philo
 	t_data          *data;
 	pthread_mutex_t *lfork;
 	pthread_mutex_t *rfork;
+	pthread_t		*philo_t;
 }                   t_philo;
 
 typedef struct      s_data
 {
 	int              	num_philos;
-	uint64_t     		time_to_die;
-	uint64_t     	time_to_eat;
-	uint64_t    	time_to_sleep;
-	uint64_t       n_must_eat;
+	long long int     		time_to_die;
+	long long int     	time_to_eat;
+	long long int    	time_to_sleep;
+	long long int       n_must_eat;
 	int					finished;
 	uint64_t          	start_time;
 	pthread_mutex_t	  	*chopsticks;
 	pthread_mutex_t		*write_mutex;
+	pthread_mutex_t		*data_mutex;
 	t_philo           	*philo;
-	pthread_t			*philo_t;
 }           t_data;
 
-void     p_sleep(t_philo *philo, uint64_t ms);
-int     sleeper(t_philo *philo);
+void     died(t_data *data);
+void     p_sleep(t_data *data, long long ms);
+int     philo_sleep(t_philo *philo);
 int parse_input(t_data *data, char **argv, int argc);
 u_int64_t	get_current_time(void);
 int print_log(t_philo *philo, int state);
