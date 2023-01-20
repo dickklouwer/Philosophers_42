@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/20 14:06:43 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 16:14:31 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	init_checks(t_data *data)
 	if (data->time_to_die < 0 || data->time_to_sleep < 0
 		|| data->time_to_eat < 0)
 		return (printf("./philo time_to_* only 60ms > allowed.\n"), 1);
+	if (data->num_philos < 0 || data->num_philos == 0)
+		return (printf("./philo atleast one philo needed.\n"), 1);
 	return (EXIT_SUCCESS);
 }
 
@@ -74,6 +76,8 @@ static int	data_init(t_data *data, char **argv)
 
 	i = 0;
 	data->num_philos = ft_atoi(argv[1]);
+	if (data->num_philos < 0 || data->num_philos == 0)
+		return (printf("./philo input out of limits\n"), 1);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
