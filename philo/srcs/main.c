@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/23 13:27:07 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/20 09:18:21 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 14:13:00 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	join_threads(t_data *data)
 	{
 		if (pthread_join(*data->philo[i].philo_t, NULL))
 			return (EXIT_FAILURE);
+		free(data->philo[i].philo_t);
 		i++;
 	}
 	return (EXIT_SUCCESS);

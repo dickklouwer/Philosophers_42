@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/11 14:09:26 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 15:41:06 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 14:08:53 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ int	thinking(t_philo *philo)
 	}
 	print_log(philo, THINKING);
 	pthread_mutex_unlock(philo->data->write_mutex);
-	return (0);
+	return (EXIT_SUCCESS);
 }

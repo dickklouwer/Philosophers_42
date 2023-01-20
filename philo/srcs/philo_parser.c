@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/20 11:43:23 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 14:06:43 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	init_checks(t_data *data)
 {
-	if (data->num_philos < 2)
-		return (printf("./philo need atleast 2 philos for the feast\n"), 1);
 	if (data->num_philos > 200)
 		return (printf("./philo no more then 200 philos allowed\n"), 1);
 	if (data->time_to_die < 0 || data->time_to_sleep < 0

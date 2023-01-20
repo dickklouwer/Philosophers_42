@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/04 15:05:22 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/20 11:04:54 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 14:05:54 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ void	*philo(void *philosopher)
 		p_sleep(philo->data, 10);
 	while (1)
 	{
-		eating(philo);
+		if (eating(philo))
+			return (EXIT_SUCCESS);
 		philo_sleep(philo);
 		thinking(philo);
-		if (philo->done)
-			break ;
 	}
 	return (EXIT_SUCCESS);
 }
