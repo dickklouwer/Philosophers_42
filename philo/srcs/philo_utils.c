@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   philo_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 12:17:32 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 12:52:10 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 14:11:49 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int print_log(t_philo *philo, int state)
+int	print_log(t_philo *philo, int state)
 {
-	uint64_t time;
+	uint64_t	time;
 
 	time = (get_current_time() - philo->data->start_time);
 	if (state == EATING)
@@ -32,20 +32,4 @@ int print_log(t_philo *philo, int state)
 		return (1);
 	}
 	return (0);
-}
-
-int only_num(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == '-')
-		return (EXIT_FAILURE);
-	while(str[i])
-	{
-		if (ft_isdigit(str[i]) == 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
 }

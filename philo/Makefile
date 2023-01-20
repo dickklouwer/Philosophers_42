@@ -3,7 +3,7 @@
 
 NAME := philo
 
-SRCS := main.c parse_input.c libft.c philosophers.c time.c utils.c tasks.c die.c
+SRCS := main.c philo_parser.c philo_libft.c philo_threads.c philo_time.c philo_utils.c philo_tasks.c
 
 SRCSDIR := srcs
 
@@ -11,7 +11,7 @@ OBJDIR := obj
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 
-CFLAGS := -Wall -Wextra -g
+CFLAGS := -Wall -Werror -Wextra
 
 INCLUDES :=  -I includes 
 

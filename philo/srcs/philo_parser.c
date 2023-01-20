@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 13:02:35 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 15:56:39 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 static int	init_checks(t_data *data)
 {
 	if (data->num_philos < 2)
-		return (printf("./philo need atleast 2 philos for the feast\n", EXIT_FAILURE));
+		return (printf("./philo need atleast 2 philos for the feast\n"), 1);
 	if (data->num_philos > 200)
-		return (printf("./philo no more then 200 philos allowed at the feast\n"), EXIT_FAILURE);
-	if (data->time_to_die < 0 || data->time_to_sleep < 0 || data->time_to_eat < 0)
-		return (printf("./philo time_to_* only 60ms > allowed.\n"), EXIT_FAILURE);
+		return (printf("./philo no more then 200 philos allowed\n"), 1);
+	if (data->time_to_die < 0 || data->time_to_sleep < 0
+		|| data->time_to_eat < 0)
+		return (printf("./philo time_to_* only 60ms > allowed.\n"), 1);
 	return (EXIT_SUCCESS);
 }
 
 static int	chopsticks_init(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->chopsticks = ft_calloc(data->num_philos, sizeof(pthread_mutex_t));
@@ -43,9 +44,9 @@ static int	chopsticks_init(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int    philosophers_init(t_data *data)
+static int	philosophers_init(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	data->philo = ft_calloc(data->num_philos + 1, sizeof(t_philo));
@@ -69,7 +70,7 @@ static int    philosophers_init(t_data *data)
 	return (EXIT_FAILURE);
 }
 
-static int data_init(t_data *data, char **argv)
+static int	data_init(t_data *data, char **argv)
 {
 	int	i;
 
@@ -82,7 +83,7 @@ static int data_init(t_data *data, char **argv)
 	{
 		data->n_must_eat = ft_atoi(argv[5]);
 		if (data->n_must_eat < 0)
-			return(EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	if (!argv[5])
 		data->n_must_eat = -1;
@@ -93,21 +94,21 @@ static int data_init(t_data *data, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-int parse_input(t_data *data, char **argv, int argc)
+int	parse_input(t_data *data, char **argv, int argc)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (argc != 5 && argc != 6)
-		return (printf("./philo: missing arguments"), EXIT_FAILURE);
+		return (printf("./philo: missing arguments"), 1);
 	while (i < argc)
 	{
 		if (only_num(argv[i]))
-			return (printf("./philo: only non-negative input allowed\n"), EXIT_FAILURE);
+			return (printf("./philo: only non-negative input allowed\n"), 1);
 		i++;
 	}
 	if (data_init(data, argv))
-		return (printf("./philo: integer is out of limits\n"), EXIT_FAILURE);
+		return (printf("./philo: integer is out of limits\n"), 1);
 	if (philosophers_init(data))
 		return (printf("./philo: Philosophers initialization failed"), 1);
 	return (EXIT_SUCCESS);

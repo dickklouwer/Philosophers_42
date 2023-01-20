@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   libft.c                                            :+:    :+:            */
+/*   philo_libft.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 14:59:32 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 14:05:22 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/19 15:41:58 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 #include <limits.h>
 
+int	only_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		return (EXIT_FAILURE);
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	ft_atoi(const char *str)
 {
-	long long int	res;
-	int		min;
-	int		i;
+	long long	res;
+	int			min;
+	int			i;
 
 	i = 0;
 	res = 0;
