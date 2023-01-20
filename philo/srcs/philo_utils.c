@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/09 12:17:32 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 14:11:49 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 11:14:56 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	print_log(t_philo *philo, int state)
 	else if (state == DIED)
 	{
 		philo->data->finished = 1;
-		printf("%llu %d died...\n", time, philo->id);
+		printf("%llu %d died\n", time, philo->id);
 		return (1);
 	}
 	return (0);
