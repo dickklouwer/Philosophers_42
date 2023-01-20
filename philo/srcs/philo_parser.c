@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse_input.c                                      :+:    :+:            */
+/*   philo_parser.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/03 13:59:27 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 15:56:39 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 11:43:23 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	parse_input(t_data *data, char **argv, int argc)
 		i++;
 	}
 	if (data_init(data, argv))
-		return (printf("./philo: integer is out of limits\n"), 1);
+		return (1);
 	if (philosophers_init(data))
 		return (printf("./philo: Philosophers initialization failed"), 1);
 	return (EXIT_SUCCESS);

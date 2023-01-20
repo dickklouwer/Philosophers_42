@@ -6,7 +6,7 @@
 /*   By: tklouwer <tklouwer@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/04 14:54:24 by tklouwer      #+#    #+#                 */
-/*   Updated: 2023/01/19 15:51:08 by tklouwer      ########   odam.nl         */
+/*   Updated: 2023/01/20 11:42:09 by tklouwer      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	p_sleep(t_data *data, long long ms)
 		if ((end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec)
 			/ 1000 >= ms)
 			return ;
-		if (data->num_philos < 100)
+		if (data->num_philos < 10)
 			usleep(100);
 		else
 			usleep(1000);
